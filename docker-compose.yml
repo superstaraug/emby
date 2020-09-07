@@ -1,0 +1,37 @@
+version: '2'
+services:
+  emby:
+    image: linuxserver/emby
+    container_name: emby
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Shanghai
+      - UMASK_SET=022 #optional
+    volumes:
+      - ./var_lib_emby:/config
+    #  - ./transcoding:/transcode
+      - /mnt/EmbyMedia:/mnt/EmbyMedia
+    #devices:
+    #  - /dev/dri:/dev/dri
+    ports:
+      - 8098:8098
+    restart: unless-stopped
+  emby-dmm:
+    image: linuxserver/emby
+    container_name: emby_dmm
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Shanghai
+      - UMASK_SET=022 #optional
+    volumes:
+      - ./var_lib_emby-dmm:/config
+    #  - ./transcoding:/transcode
+      - /mnt/EmbyDmm:/mnt/EmbyDmm
+    #devices:
+    #  - /dev/dri:/dev/dri
+    ports:
+      - 8198:8198
+    restart: unless-stopped
+
